@@ -10,7 +10,7 @@ public class User {
     private LocalDateTime registeredAt;
     private String password;
 
-    public User(int userId, String name, String phone, String email, String password) {
+    public User(int userId, String name, String phone, String email, LocalDateTime now, String password) {
         this.userId = userId;
         this.name = name;
         this.phone = phone;
