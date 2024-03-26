@@ -1,11 +1,11 @@
 package user;
 
+import db.Database;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import database.Database;
 
 public class UserController {
 

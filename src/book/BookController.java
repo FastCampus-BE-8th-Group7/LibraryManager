@@ -25,4 +25,5 @@ public class BookController {
         System.out.println("책 정보를 조회합니다.");
         return BookTable.bookMap;
     }
+
 }
