@@ -12,7 +12,7 @@ public class Loan {
 
     // 생성자
     public Loan(int bookId, int userId){
-        loanId = setLoanId();
+        //loanId = setLoanId();
         this.bookId = bookId;
         this.userId = userId;
         startDate = LocalDate.now();
@@ -34,9 +34,20 @@ public class Loan {
     }
 
     public int getLoanId() { return loanId; }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
 
     public LocalDate getReturnDate() { return returnDate; }
 
+    /**
+     * @deprecated
+     * auto increment를 제공하므로 loanId를 직접 삽입할 필요 없음
+     */
     public int setLoanId() {
         LoanTable loanTable = LoanTable.getInstance();
         int index = loanTable.loanMap.size();
