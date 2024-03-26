@@ -4,7 +4,7 @@ import bookDto.BookDto;
 
 import java.util.Date;
 
-public class PhysicalBook implements Book{
+public class PhysicalBook {
     private int bookId;
     private String title;
     private String author;
@@ -15,19 +15,4 @@ public class PhysicalBook implements Book{
 
     private String location;
 
-
-    @Override
-    public void addBook(BookDto bookDto) {
-
-    }
-
-    @Override
-    public int updateBook(int bookId) {
-        return 1;
-    }
-
-    @Override
-    public int deleteBook(int bookId) {
-        return 1;
-    }
 }
