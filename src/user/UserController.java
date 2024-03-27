@@ -157,4 +157,30 @@ public class UserController {
 
         return users;
     }
+
+    public User loginUser(String email, String password) {
+        String sql = "SELECT * FROM User WHERE email = ? AND password = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                LocalDateTime registeredAt = rs.getTimestamp("registered_at").toLocalDateTime();
+
+                return new User(userId, name, phone, email, registeredAt, password);
+            } else {
+                System.out.println("사용자 로그인 실패: 사용자 정보가 일치하지 않음");
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("사용자 로그인 실패: " + e.getMessage());
+            return null;
+        }
+    }
 }
