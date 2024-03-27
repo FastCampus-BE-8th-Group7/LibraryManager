@@ -8,47 +8,77 @@ public class Book {
     private String author;
     private LocalDate publicationYear;
     private String isbn;
-    private boolean isAbailable;
+    private boolean isAvailable;
     private String publisher;
-    private int category;
+    private String category;
 
-    public Book(String title, String author, String publisher, int category) {
-        setBookId();
+    public Book(String title, String author, LocalDate publicationYear, String isbn, boolean isAvailable, String publisher, String category) {
         this.title = title;
         this.author = author;
+        this.publicationYear = publicationYear;
+        this.isbn = isbn;
+        this.isAvailable = isAvailable;
         this.publisher = publisher;
         this.category = category;
-        isAbailable = true;
-    }
-
-    public Book() {}
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public String getAuthor() {
-        return this.author;
-    }
-
-    public String getPublisher() {
-        return this.publisher;
     }
 
     public int getBookId() {
-        return this.bookId;
+        return bookId;
     }
 
-    public void setBookId() {
-        bookId = BookTable.bookMap.size();
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Book setBook(String title, String author, String publisher, int category) {
-        Book book = new Book(title, author, publisher, category);
-        return book;
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public LocalDate getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(LocalDate publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public boolean getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
