@@ -18,7 +18,7 @@ public class UserController {
      * @return
      */
     public User registerUser(String name, String phone, String email, String password) {
-        String sql = "INSERT INTO users (name, phone, email, password) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO User (name, phone, email, password, registered_at) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -26,6 +26,7 @@ public class UserController {
             pstmt.setString(2, phone);
             pstmt.setString(3, email);
             pstmt.setString(4, password);
+            pstmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows == 0) {
@@ -56,7 +57,7 @@ public class UserController {
      * @param password
      */
     public void updateUser(int userId, String name, String phone, String email, String password) {
-        String sql = "UPDATE users SET name = ?, phone = ?, email = ?, password = ? WHERE userId = ?";
+        String sql = "UPDATE User SET name = ?, phone = ?, email = ?, password = ? WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -83,7 +84,7 @@ public class UserController {
      * @param userId
      */
     public void deleteUser(int userId) {
-        String sql = "DELETE FROM users WHERE userId = ?";
+        String sql = "DELETE FROM User WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -107,7 +108,7 @@ public class UserController {
      * @return User 객체
      */
     public User getUser(int userId) {
-        String sql = "SELECT * FROM users WHERE userId = ?";
+        String sql = "SELECT * FROM User WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -118,7 +119,7 @@ public class UserController {
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
                 String email = rs.getString("email");
-                LocalDateTime registeredAt = rs.getTimestamp("registeredAt").toLocalDateTime();
+                LocalDateTime registeredAt = rs.getTimestamp("registered_at").toLocalDateTime();
                 String password = rs.getString("password");
                 return new User(userId, name, phone, email, registeredAt, password);
             }
@@ -134,19 +135,19 @@ public class UserController {
      */
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT userId, name, phone, email, password, registeredAt FROM users";
+        String sql = "SELECT user_id, name, phone, email, password, registered_at FROM User";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                int userId = rs.getInt("UserID");
-                String name = rs.getString("Name");
-                String phone = rs.getString("Phone");
-                String email = rs.getString("Email");
-                String password = rs.getString("Password");
-                LocalDateTime registeredAt = rs.getTimestamp("RegisteredAt").toLocalDateTime();
+                int userId = rs.getInt("user_id");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                LocalDateTime registeredAt = rs.getTimestamp("registered_at").toLocalDateTime();
 
                 users.add(new User(userId, name, phone, email, registeredAt, password));
             }
