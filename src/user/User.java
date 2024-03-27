@@ -10,12 +10,12 @@ public class User {
     private LocalDateTime registeredAt;
     private String password;
 
-    public User(int userId, String name, String phone, String email, LocalDateTime now, String password) {
+    public User(int userId, String name, String phone, String email, LocalDateTime registeredAt, String password) {
         this.userId = userId;
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.registeredAt = LocalDateTime.now(); // 현재 시간으로 등록 날짜 초기화
+        this.registeredAt = registeredAt;
         this.password = password;
     }
 
