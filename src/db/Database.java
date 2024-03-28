@@ -18,7 +18,7 @@ public class Database {
 
         // JDBC 드라이버 로드
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println("JDBC 드라이버를 로드하는데에 문제 발생" + e.getMessage());
             e.printStackTrace();
@@ -28,7 +28,7 @@ public class Database {
         // 데이터베이스 접속
         try {
             con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", username, password);
-            System.out.println("연결 완료");
+            //System.out.println("연결 완료");
         } catch(SQLException e) {
             System.err.println("연결 오류" + e.getMessage());
             e.printStackTrace();

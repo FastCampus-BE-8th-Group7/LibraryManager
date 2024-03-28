@@ -1,4 +1,5 @@
 import db.Database;
+import loan.LoanController;
 import user.*;
 import book.*;
 
@@ -17,6 +18,7 @@ public class Main {
         BookController bookController = new BookController();
         BookView bookView = new BookView();
         Scanner scanner = new Scanner(System.in);
+        LoanController loanController = new LoanController();
 
         outerWhile:
         while (true) {
@@ -63,10 +65,12 @@ public class Main {
                         System.out.println("4. 책 등록하기");
                         System.out.println("5. 책 수정하기");
                         System.out.println("6. 책 삭제하기");
-                        System.out.println("7. 내 대출보기");
-                        System.out.println("8. 내 예약보기");
-                        System.out.println("9. 로그아웃하기");
-                        System.out.println("10. 탈퇴하기");
+                        System.out.println("7. 책 대출하기");
+                        System.out.println("8. 책 반납하기");
+                        System.out.println("9. 내 대출보기");
+                        System.out.println("10. 내 예약보기");
+                        System.out.println("11. 로그아웃하기");
+                        System.out.println("12. 탈퇴하기");
                         System.out.print("원하는 서비스 번호를 입력하세요: ");
                         scanner = new Scanner(System.in);
                         if (scanner.hasNextInt()) {
@@ -150,12 +154,25 @@ public class Main {
                                     bookController.deleteBook(number);
                                     break;
                                 case 7:
-                                    // TODO: 2024-03-26 내 대출 정보 호출하기
+                                    System.out.println("*****책 대출을 진행합니다.*****");
+                                    System.out.print("대출할 책 제목 입력: ");
+                                    scanner.nextLine();
+                                    String bookTitle = scanner.nextLine();
+                                    loanController.loanBook(bookTitle, myUserId);
+                                    break;
                                 case 8:
-                                    // TODO: 2024-03-26 내 예약 정보 호출하기
+                                    System.out.println("*****책 반납을 진행합니다.*****");
+                                    loanController.returnBook(myUserId);
+                                    break;
                                 case 9:
-                                    break innerWhile;
+                                    System.out.println("*****대출 목록 확인을 진행합니다.*****");
+                                    loanController.checkUserLoanState(myUserId);
+                                    break;
                                 case 10:
+                                    // TODO: 2024-03-26 내 예약 정보 호출하기
+                                case 11: // 로그아웃
+                                    break innerWhile;
+                                case 12: // 탈퇴하기
                                     userController.deleteUser(myUserId);
                                     break innerWhile;
                                 default:
