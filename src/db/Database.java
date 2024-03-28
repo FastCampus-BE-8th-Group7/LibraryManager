@@ -11,6 +11,7 @@ public class Database {
 
     public static void connect() throws IOException {
         prop.load(new FileInputStream("config.properties"));
+        String classname = prop.getProperty("db.classname"); //"com.mysql.jdbc.Driver"
         String server = prop.getProperty("db.server"); // 서버 주소
         String database = prop.getProperty("db.database"); // 데이터베이스 이름
         String username = prop.getProperty("db.username"); // 접속자 id
@@ -18,8 +19,9 @@ public class Database {
 
         // JDBC 드라이버 로드
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+            Class.forName(classname);
+        }
+        catch (ClassNotFoundException e) {
             System.err.println("JDBC 드라이버를 로드하는데에 문제 발생" + e.getMessage());
             e.printStackTrace();
             return;
@@ -28,7 +30,7 @@ public class Database {
         // 데이터베이스 접속
         try {
             con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", username, password);
-            System.out.println("연결 완료");
+            //System.out.println("연결 완료");
         } catch(SQLException e) {
             System.err.println("연결 오류" + e.getMessage());
             e.printStackTrace();
